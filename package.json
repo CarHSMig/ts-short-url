@@ -18,10 +18,13 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "ts-node ./node_modules/typeorm/cli.js -d data-source.ts",
-    "migration:generate": "npm run typeorm migration:generate -- -d ./data-source.ts src/database/migrations/InitMigration",
-    "migration:run": "npm run typeorm migration:run -- -d ./data-source.ts",
-    "migration:revert": "npm run typeorm migration:revert -- -d ./data-source.ts",
+    "typeorm": "NODE_ENV=development ts-node ./node_modules/typeorm/cli.js -d data-source.ts",
+    "migration:generate": "NODE_ENV=development npm run typeorm -- migration:generate src/database/migrations/InitMigration",
+    "migration:run": "NODE_ENV=development npm run typeorm -- migration:run",
+    "migration:revert": "NODE_ENV=development npm run typeorm -- migration:revert",
+    "migration:generate:prod": "NODE_ENV=production npm run typeorm -- migration:generate src/database/migrations/InitMigration",
+    "migration:run:prod": "NODE_ENV=production npm run typeorm -- migration:run",
+    "migration:revert:prod": "NODE_ENV=production npm run typeorm -- migration:revert",
     "test:db": "ts-node scripts/test-connection.ts"
   },
   "dependencies": {
